@@ -17,8 +17,7 @@ Murkio identity for Flutter. With **only the publishable key** your app gets:
 dependencies:
   murkio_identity:
     git:
-      url: https://github.com/ViitoJooj/murkio-identity.git
-      path: libs/external/flutter
+      url: https://github.com/ViitoJooj/murkio-flutter.git
 ```
 
 Android needs `minSdkVersion 24` (the default of current Flutter). Nothing to set up on iOS.
@@ -223,6 +222,9 @@ await tester.pumpWidget(MaterialApp(home: MurkioIdentityCanvas(murkio: murkio)))
 Every widget takes a `murkio:` so a test never needs the global instance.
 
 ## Developing
+
+This repository is a git submodule of the Murkio identity service
+(`libs/external/flutter`), and the commands below run from that checkout.
 
 ```sh
 flutter pub get
