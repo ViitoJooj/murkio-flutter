@@ -1,0 +1,26 @@
+name: murkio_identity
+description: >-
+  Murkio identity for Flutter: the login canvas, the email, password,
+  keep-logged, login and register widgets, and the session client. Only the
+  publishable key is needed.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.7.0
+  flutter: ">=3.29.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  crypto: ^3.0.3
+  flutter_secure_storage: ^11.0.0
+  http: ^1.2.0
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_lints: ^6.0.0
