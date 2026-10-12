@@ -223,17 +223,28 @@ Every widget takes a `murkio:` so a test never needs the global instance.
 
 ## Developing
 
-This repository is a git submodule of the Murkio identity service
-(`libs/external/flutter`), and the commands below run from that checkout.
-
 ```sh
 flutter pub get
-flutter analyze
 flutter test
 ```
 
-The tests run the vectors and fixtures in `libs/spec` that every Murkio client SDK shares
-(the web SDK runs the same ones), so the canvas is laid out and the flows behave like on
-the web. `lib/src/generated/spec.g.dart` comes from `node libs/scripts/sync-client-spec.mjs`.
+The tests run the vectors and fixtures every Murkio client SDK shares (the web SDK runs
+the same ones), so the canvas is laid out and the flows behave like on the web. That copy
+(`spec/`), `lib/src/generated/spec.g.dart` and the checks in `infra/pipeline/` are kept
+in the Murkio identity service and synced from there, so they are not edited here.
 Set `MURKIO_LIVE_API`, `MURKIO_LIVE_PK`, `MURKIO_LIVE_EMAIL` and `MURKIO_LIVE_PASSWORD` to
 also run `test/live_test.dart` against a real API.
+
+Every pull request runs the workflows in `.github/workflows`. The same checks, locally:
+
+| Workflow | What it runs |
+| --- | --- |
+| Build | creates the Android project of `example/` and runs `flutter build apk --debug` |
+| Format | `dart format --output=none --set-exit-if-changed .` |
+| Lint | `flutter analyze --fatal-infos` (the package and the example) |
+| Tests | `flutter test` on Flutter 3.29.0 and on the current release |
+| Quality & Governance Checks | `for check in infra/pipeline/*.py; do python3 "$check"; done` |
+| Security | `osv-scanner scan source --lockfile pubspec.lock`, `gitleaks git .`, `zizmor --pedantic .` |
+| Dependency Review | run by GitHub on the pull request |
+
+Security reports: see [SECURITY.md](SECURITY.md).
