@@ -23,4 +23,4 @@ dev_dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_lints: ^6.0.0
+  flutter_lints: ">=5.0.0 <7.0.0" # 6.x needs Dart 3.8; the oldest supported Flutter has 3.7
