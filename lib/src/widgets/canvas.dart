@@ -227,8 +227,8 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
       context,
       widgetLocale: widget.locale,
       optionLocale: murkio?.localeOption,
-      deviceLocale:
-          WidgetsBinding.instance.platformDispatcher.locale.toLanguageTag(),
+      deviceLocale: WidgetsBinding.instance.platformDispatcher.locale
+          .toLanguageTag(),
     );
   }
 
@@ -294,9 +294,8 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
       );
     } else {
       child = LayoutBuilder(
-        builder:
-            (context, constraints) =>
-                _frame(context, constraints, document, state, locale),
+        builder: (context, constraints) =>
+            _frame(context, constraints, document, state, locale),
       );
     }
     return MurkioEnvironment(child: child);
@@ -314,10 +313,9 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
     final screen = signUp ? document.signUp! : document.signIn;
     final config = _isPreview ? null : _config;
     final oauth = _isPreview || (_murkio?.oauthEnabled ?? false);
-    final width =
-        constraints.hasBoundedWidth
-            ? constraints.maxWidth
-            : screen.desktop.width.toDouble();
+    final width = constraints.hasBoundedWidth
+        ? constraints.maxWidth
+        : screen.desktop.width.toDouble();
     final placement = place(screen, width, config: config, oauth: oauth);
     final submit = submitAction(
       screen,
@@ -327,19 +325,17 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
     );
 
     final error = state.error;
-    final message =
-        error != null
-            ? translateError(error.code, locale)
-            : state.notice != null
-            ? murkioString(locale, state.notice!)
-            : _failed
-            ? translateError('unknown', locale)
-            : null;
+    final message = error != null
+        ? translateError(error.code, locale)
+        : state.notice != null
+        ? murkioString(locale, state.notice!)
+        : _failed
+        ? translateError('unknown', locale)
+        : null;
     final isNotice = error == null && state.notice != null;
-    final slot =
-        placement.order
-            .where((element) => element.type == CanvasElementType.errorMessage)
-            .firstOrNull;
+    final slot = placement.order
+        .where((element) => element.type == CanvasElementType.errorMessage)
+        .firstOrNull;
 
     final shared = _ElementContext(
       theme: document.theme,
@@ -438,8 +434,9 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
         style: style.copyWith(
           fontSize: fontSize,
           fontWeight: weight,
-          color:
-              c.isNotice ? Color(c.theme.text) : color ?? Color(c.theme.error),
+          color: c.isNotice
+              ? Color(c.theme.text)
+              : color ?? Color(c.theme.error),
         ),
       ),
     );
@@ -494,35 +491,34 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
             c.signUp ? AutofillHints.newPassword : AutofillHints.password,
           ],
           onSubmitted: () => _act(c.submit, screen),
-          trailing:
-              element.showToggle
-                  ? Semantics(
-                    button: true,
-                    toggled: !_obscure,
-                    label: murkioString(
-                      c.locale,
-                      _obscure ? 'password.show' : 'password.hide',
-                    ),
-                    child: InkResponse(
-                      key: const ValueKey('murkio-password-toggle'),
-                      radius: 20,
-                      onTap: () => setState(() => _obscure = !_obscure),
-                      child: SizedBox(
-                        width: 36,
-                        height: 36,
-                        child: Center(
-                          child: CustomPaint(
-                            size: const Size(20, 20),
-                            painter: EyePainter(
-                              Color(theme.muted),
-                              crossed: !_obscure,
-                            ),
+          trailing: element.showToggle
+              ? Semantics(
+                  button: true,
+                  toggled: !_obscure,
+                  label: murkioString(
+                    c.locale,
+                    _obscure ? 'password.show' : 'password.hide',
+                  ),
+                  child: InkResponse(
+                    key: const ValueKey('murkio-password-toggle'),
+                    radius: 20,
+                    onTap: () => setState(() => _obscure = !_obscure),
+                    child: SizedBox(
+                      width: 36,
+                      height: 36,
+                      child: Center(
+                        child: CustomPaint(
+                          size: const Size(20, 20),
+                          painter: EyePainter(
+                            Color(theme.muted),
+                            crossed: !_obscure,
                           ),
                         ),
                       ),
                     ),
-                  )
-                  : null,
+                  ),
+                )
+              : null,
         );
 
       case CanvasElementType.keepLogged:
@@ -551,12 +547,11 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
                       ),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child:
-                        checked
-                            ? CustomPaint(
-                              painter: CheckPainter(Color(theme.onPrimary)),
-                            )
-                            : null,
+                    child: checked
+                        ? CustomPaint(
+                            painter: CheckPainter(Color(theme.onPrimary)),
+                          )
+                        : null,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -574,10 +569,9 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
 
       case CanvasElementType.loginButton:
       case CanvasElementType.registerButton:
-        final action =
-            element.type == CanvasElementType.loginButton
-                ? 'login'
-                : 'register';
+        final action = element.type == CanvasElementType.loginButton
+            ? 'login'
+            : 'register';
         return MurkioButton(
           label: element.label!.pick(c.locale),
           look: look,
@@ -590,12 +584,11 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
         final provider = element.provider!;
         final label = element.label?.pick(c.locale) ?? '';
         return MurkioButton(
-          label:
-              label.isEmpty
-                  ? murkioString(c.locale, 'oauth.continue', {
-                    'provider': providerName(provider),
-                  })
-                  : label,
+          label: label.isEmpty
+              ? murkioString(c.locale, 'oauth.continue', {
+                  'provider': providerName(provider),
+                })
+              : label,
           look: look,
           textStyle: c.base,
           busy: c.busy,
@@ -630,13 +623,13 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
             look,
             shown
                 ? _message(
-                  c,
-                  c.base,
-                  look.fontSize,
-                  color: look.foreground,
-                  align: look.align,
-                  weight: look.weight,
-                )
+                    c,
+                    c.base,
+                    look.fontSize,
+                    color: look.foreground,
+                    align: look.align,
+                    weight: look.weight,
+                  )
                 : const SizedBox.shrink(),
           ),
         );
@@ -692,15 +685,14 @@ class _MurkioIdentityCanvasState extends State<MurkioIdentityCanvas> {
   /// a font makes it a little taller than the box the editor drew.
   Widget _overflowing(ElementLook look, Widget child) {
     return LayoutBuilder(
-      builder:
-          (context, constraints) => OverflowBox(
-            alignment: look.alignment(top: true),
-            minWidth: constraints.maxWidth,
-            maxWidth: constraints.maxWidth,
-            minHeight: 0,
-            maxHeight: double.infinity,
-            child: child,
-          ),
+      builder: (context, constraints) => OverflowBox(
+        alignment: look.alignment(top: true),
+        minWidth: constraints.maxWidth,
+        maxWidth: constraints.maxWidth,
+        minHeight: 0,
+        maxHeight: double.infinity,
+        child: child,
+      ),
     );
   }
 

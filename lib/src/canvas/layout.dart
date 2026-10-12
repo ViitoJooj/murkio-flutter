@@ -118,8 +118,9 @@ CanvasPlacement place(
   required bool oauth,
 }) {
   final name = chooseLayout(screen, width);
-  final layout =
-      name == CanvasLayoutName.mobile ? screen.mobile! : screen.desktop;
+  final layout = name == CanvasLayoutName.mobile
+      ? screen.mobile!
+      : screen.desktop;
   final frameWidth = width < layout.width ? width : layout.width.toDouble();
   final shown = [
     for (final element in readingOrder(screen))
@@ -144,8 +145,9 @@ CanvasPlacement place(
     return CanvasPlacement(
       layout: name,
       frameWidth: frameWidth,
-      frameHeight:
-          shown.isEmpty ? 2 * stackPaddingY : y - stackGap + stackPaddingY,
+      frameHeight: shown.isEmpty
+          ? 2 * stackPaddingY
+          : y - stackGap + stackPaddingY,
       background: layout.background,
       order: shown,
       paint: shown,

@@ -60,11 +60,9 @@ void main() {
     () async {
       var time = DateTime(2030);
       final api = FakeApi({
-        'GET /v1/client':
-            (call) =>
-                call.headers['If-None-Match'] == 'W/"v1"'
-                    ? const Answer(304)
-                    : Answer.data(bootstrapJson(), headers: {'etag': 'W/"v1"'}),
+        'GET /v1/client': (call) => call.headers['If-None-Match'] == 'W/"v1"'
+            ? const Answer(304)
+            : Answer.data(bootstrapJson(), headers: {'etag': 'W/"v1"'}),
       });
       final murkio = await startMurkio(api, now: () => time);
 
@@ -96,11 +94,8 @@ void main() {
     var time = DateTime(2030);
     var online = true;
     final api = FakeApi({
-      'GET /v1/client':
-          (_) =>
-              online
-                  ? Answer.data(bootstrapJson())
-                  : throw Exception('offline'),
+      'GET /v1/client': (_) =>
+          online ? Answer.data(bootstrapJson()) : throw Exception('offline'),
     });
     final murkio = await startMurkio(api, now: () => time);
     final first = await murkio.bootstrap();
@@ -128,16 +123,15 @@ void main() {
   test('the profile is cached per session for a minute', () async {
     var time = DateTime(2030);
     final api = FakeApi({
-      'POST /v1/me':
-          (_) => Answer.data({
-            'id': 'user-1',
-            'session_id': 'session-1',
-            'email': 'ana@example.com',
-            'email_verified': true,
-            'roles': ['user', 'admin'],
-            'mfa_enabled': false,
-            'created_at': '2029-05-01T10:00:00Z',
-          }),
+      'POST /v1/me': (_) => Answer.data({
+        'id': 'user-1',
+        'session_id': 'session-1',
+        'email': 'ana@example.com',
+        'email_verified': true,
+        'roles': ['user', 'admin'],
+        'mfa_enabled': false,
+        'created_at': '2029-05-01T10:00:00Z',
+      }),
     });
     final murkio = await startMurkio(api, now: () => time);
     expect(await murkio.getUser(), isNull);
@@ -201,10 +195,9 @@ void main() {
       opened = [];
       storage = MurkioMemoryStorage();
       api = FakeApi({
-        'POST /v1/oauth/google/authorize':
-            (_) => Answer.data({
-              'authorization_url': 'https://accounts.example.com/o/auth?x=1',
-            }),
+        'POST /v1/oauth/google/authorize': (_) => Answer.data({
+          'authorization_url': 'https://accounts.example.com/o/auth?x=1',
+        }),
       });
     });
 
@@ -264,8 +257,8 @@ void main() {
     );
 
     test('never opens an authorization link that is not https', () async {
-      api.routes['POST /v1/oauth/google/authorize'] =
-          (_) => Answer.data({'authorization_url': 'intent://evil'});
+      api.routes['POST /v1/oauth/google/authorize'] = (_) =>
+          Answer.data({'authorization_url': 'intent://evil'});
       final murkio = await start();
       await expectLater(
         murkio.startOAuth('google', keepLogged: true),
@@ -332,12 +325,11 @@ void main() {
     });
 
     test('a 2FA challenge continues on the sign-in screen', () async {
-      api.routes['POST /v1/oauth/token'] =
-          (_) => Answer.data({
-            'mfa': {'token': 'mfa_9', 'enrollment_required': false},
-          });
-      api.routes['POST /v1/mfa/challenge/verify'] =
-          (_) => Answer.data(tokens());
+      api.routes['POST /v1/oauth/token'] = (_) => Answer.data({
+        'mfa': {'token': 'mfa_9', 'enrollment_required': false},
+      });
+      api.routes['POST /v1/mfa/challenge/verify'] = (_) =>
+          Answer.data(tokens());
       final murkio = await start();
       await murkio.startOAuth('google', keepLogged: false);
       final flow = FlowController(murkio);

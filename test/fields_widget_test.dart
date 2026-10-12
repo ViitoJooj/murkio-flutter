@@ -243,16 +243,14 @@ void main() {
           MurkioIdentityLoginButton(
             key: const ValueKey('login'),
             onLogin: logins.add,
-            builder:
-                (context, onPressed, busy) => GestureDetector(
-                  onTap: onPressed,
-                  child: Text(busy ? 'Wait' : 'Enter'),
-                ),
+            builder: (context, onPressed, busy) => GestureDetector(
+              onTap: onPressed,
+              child: Text(busy ? 'Wait' : 'Enter'),
+            ),
           ),
           MurkioAuthBuilder(
-            builder:
-                (context, session) =>
-                    Text(session == null ? 'signed out' : 'signed in'),
+            builder: (context, session) =>
+                Text(session == null ? 'signed out' : 'signed in'),
           ),
         ],
       ),

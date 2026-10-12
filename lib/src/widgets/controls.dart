@@ -87,7 +87,12 @@ class MurkioTextField extends StatelessWidget {
     );
     return decorateBox(
       look,
-      Row(children: [Expanded(child: field), if (trailing != null) trailing!]),
+      Row(
+        children: [
+          Expanded(child: field),
+          ?trailing,
+        ],
+      ),
     );
   }
 }
@@ -124,10 +129,9 @@ class MurkioButton extends StatelessWidget {
       color: look.background ?? Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: radius,
-        side:
-            hasBorder
-                ? BorderSide(color: look.borderColor!, width: look.borderWidth)
-                : BorderSide.none,
+        side: hasBorder
+            ? BorderSide(color: look.borderColor!, width: look.borderWidth)
+            : BorderSide.none,
       ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(

@@ -20,10 +20,9 @@ void main() {
         'at $width is ${expected['layout']}',
         (tester) async {
           final raw = rawDocumentAt(entry['document'] as String);
-          final screen =
-              entry['screen'] == 'sign_up'
-                  ? MurkioScreen.signUp
-                  : MurkioScreen.signIn;
+          final screen = entry['screen'] == 'sign_up'
+              ? MurkioScreen.signUp
+              : MurkioScreen.signIn;
 
           if (entry['config'] == null) {
             await pumpApp(
@@ -34,18 +33,16 @@ void main() {
           } else {
             final config = entry['config'] as Map<String, dynamic>;
             final api = FakeApi({
-              'GET /v1/client':
-                  (_) => Answer.data({
-                    ...bootstrapJson(document: raw),
-                    'config': config,
-                  }),
+              'GET /v1/client': (_) => Answer.data({
+                ...bootstrapJson(document: raw),
+                'config': config,
+              }),
             });
             final murkio = await startMurkio(
               api,
-              oauthRedirectUrl:
-                  entry['oauth'] == true
-                      ? 'https://app.example.com/callback'
-                      : null,
+              oauthRedirectUrl: entry['oauth'] == true
+                  ? 'https://app.example.com/callback'
+                  : null,
             );
             await pumpApp(
               tester,
@@ -331,15 +328,12 @@ void main() {
       var attempts = 0;
       final api = canvasApi(
         routes: {
-          'POST /v1/login':
-              (_) => Answer.data({
-                'mfa': {'token': 'mfa_1', 'enrollment_required': false},
-              }),
-          'POST /v1/mfa/challenge/verify':
-              (_) =>
-                  ++attempts == 1
-                      ? Answer.error(400, 'rsb-09')
-                      : Answer.data(tokens()),
+          'POST /v1/login': (_) => Answer.data({
+            'mfa': {'token': 'mfa_1', 'enrollment_required': false},
+          }),
+          'POST /v1/mfa/challenge/verify': (_) => ++attempts == 1
+              ? Answer.error(400, 'rsb-09')
+              : Answer.data(tokens()),
         },
       );
       final murkio = await startMurkio(api);
@@ -366,20 +360,17 @@ void main() {
     ) async {
       final api = canvasApi(
         routes: {
-          'POST /v1/login':
-              (_) => Answer.data({
-                'mfa': {'token': 'mfa_2', 'enrollment_required': true},
-              }),
-          'POST /v1/mfa/challenge/enroll':
-              (_) => Answer.data({
-                'secret': 'JBSWY3DPEHPK3PXP',
-                'otpauth_uri': 'otpauth://totp/App:ana?secret=JBSWY3DPEHPK3PXP',
-              }),
-          'POST /v1/mfa/challenge/enroll/confirm':
-              (_) => Answer.data({
-                'recovery_codes': ['aaaa-bbbb', 'cccc-dddd'],
-                'session': tokens(),
-              }),
+          'POST /v1/login': (_) => Answer.data({
+            'mfa': {'token': 'mfa_2', 'enrollment_required': true},
+          }),
+          'POST /v1/mfa/challenge/enroll': (_) => Answer.data({
+            'secret': 'JBSWY3DPEHPK3PXP',
+            'otpauth_uri': 'otpauth://totp/App:ana?secret=JBSWY3DPEHPK3PXP',
+          }),
+          'POST /v1/mfa/challenge/enroll/confirm': (_) => Answer.data({
+            'recovery_codes': ['aaaa-bbbb', 'cccc-dddd'],
+            'session': tokens(),
+          }),
         },
       );
       final opened = <Uri>[];
@@ -485,10 +476,9 @@ void main() {
       );
       FakeApi api() => canvasApi(
         routes: {
-          'POST /v1/oauth/google/authorize':
-              (_) => Answer.data({
-                'authorization_url': 'https://accounts.example.com/auth',
-              }),
+          'POST /v1/oauth/google/authorize': (_) => Answer.data({
+            'authorization_url': 'https://accounts.example.com/auth',
+          }),
         },
         document: document,
         providers: ['google'],

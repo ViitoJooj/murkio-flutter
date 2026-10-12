@@ -213,10 +213,9 @@ class _MurkioStepViewState extends State<MurkioStepView> {
             _code,
             focusNode: _first,
             hints: const [AutofillHints.oneTimeCode],
-            action:
-                step.needsPassword
-                    ? TextInputAction.next
-                    : TextInputAction.done,
+            action: step.needsPassword
+                ? TextInputAction.next
+                : TextInputAction.done,
             onSubmitted: step.needsPassword ? _second.requestFocus : submit,
           ),
         );
@@ -340,12 +339,11 @@ class _MurkioStepViewState extends State<MurkioStepView> {
     }
 
     final error = state.error;
-    final message =
-        error != null
-            ? translateError(error.code, widget.locale)
-            : state.notice != null
-            ? _say(state.notice!)
-            : null;
+    final message = error != null
+        ? translateError(error.code, widget.locale)
+        : state.notice != null
+        ? _say(state.notice!)
+        : null;
     if (message != null) {
       children.add(
         Semantics(

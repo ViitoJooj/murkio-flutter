@@ -35,8 +35,9 @@ class MurkioException implements Exception {
           details.add(
             MurkioErrorDetail(
               code: item['code'] as String,
-              message:
-                  item['message'] is String ? item['message'] as String : '',
+              message: item['message'] is String
+                  ? item['message'] as String
+                  : '',
               path: item['path'] is String ? item['path'] as String : null,
             ),
           );
@@ -51,10 +52,9 @@ class MurkioException implements Exception {
   }
 
   /// Any error as a [MurkioException] (`unknown` when it is something else).
-  factory MurkioException.from(Object error) =>
-      error is MurkioException
-          ? error
-          : MurkioException('unknown', 0, message: error.toString());
+  factory MurkioException.from(Object error) => error is MurkioException
+      ? error
+      : MurkioException('unknown', 0, message: error.toString());
 
   final String code;
   final int status;

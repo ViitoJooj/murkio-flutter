@@ -96,16 +96,16 @@ class MurkioUser {
     }
     return MurkioUser(
       id: json['id'] as String,
-      sessionId:
-          json['session_id'] is String ? json['session_id'] as String : '',
+      sessionId: json['session_id'] is String
+          ? json['session_id'] as String
+          : '',
       email: json['email'] is String ? json['email'] as String : null,
       emailVerified: json['email_verified'] == true,
       roles: _strings(json['roles']),
       mfaEnabled: json['mfa_enabled'] == true,
-      createdAt:
-          json['created_at'] is String
-              ? DateTime.tryParse(json['created_at'] as String)
-              : null,
+      createdAt: json['created_at'] is String
+          ? DateTime.tryParse(json['created_at'] as String)
+          : null,
     );
   }
 
@@ -136,8 +136,9 @@ class PublicConfig {
     final signup = json['signup'];
     return PublicConfig(
       passwordEnabled: methods is Map ? methods['password'] != false : true,
-      mfaMode:
-          mfa is Map && mfa['mode'] is String ? mfa['mode'] as String : 'off',
+      mfaMode: mfa is Map && mfa['mode'] is String
+          ? mfa['mode'] as String
+          : 'off',
       oauthProviders: _strings(json['oauth_providers']),
       loginOnVerify: signup is Map ? signup['login_on_verify'] != false : true,
     );
@@ -171,8 +172,9 @@ class ClientBootstrap {
     return ClientBootstrap(
       applicationId: json['application_id'] as String,
       config: PublicConfig.fromJson(json['config']),
-      canvasVersion:
-          canvas['version'] is num ? (canvas['version'] as num).toInt() : 0,
+      canvasVersion: canvas['version'] is num
+          ? (canvas['version'] as num).toInt()
+          : 0,
       canvasDocument: canvas['document'],
     );
   }
@@ -232,7 +234,6 @@ AccessClaims? decodeClaims(String token) {
   }
 }
 
-List<String> _strings(Object? value) =>
-    value is List
-        ? List.unmodifiable(value.whereType<String>())
-        : const <String>[];
+List<String> _strings(Object? value) => value is List
+    ? List.unmodifiable(value.whereType<String>())
+    : const <String>[];
