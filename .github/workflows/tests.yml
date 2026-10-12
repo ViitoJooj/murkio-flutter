@@ -20,8 +20,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # The oldest Flutter the package supports (pubspec.yaml) and the current one.
-        flutter: ["3.38.0", "3.x"]
+        # The oldest Flutter line the package supports (pubspec.yaml) and the current one.
+        flutter: ["3.38.x", "3.x"]
     steps:
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
