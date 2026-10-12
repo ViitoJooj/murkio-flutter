@@ -7,9 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:murkio_identity/murkio_identity.dart';
 
-/// libs/spec, shared with the service and the other SDKs. Tests run from the
-/// package directory.
-final Directory specDir = Directory('../../spec');
+/// The copy of the spec every Murkio client SDK is tested against. Tests run
+/// from the package directory.
+final Directory specDir = Directory('spec');
 
 Object? readSpec(String path) =>
     jsonDecode(File('${specDir.path}/$path').readAsStringSync());
