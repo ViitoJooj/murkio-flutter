@@ -12,10 +12,9 @@ void main() {
   final key = env['MURKIO_LIVE_PK'];
   final email = env['MURKIO_LIVE_EMAIL'];
   final password = env['MURKIO_LIVE_PASSWORD'];
-  final skip =
-      [apiUrl, key, email, password].contains(null)
-          ? 'set MURKIO_LIVE_* to run against a real API'
-          : null;
+  final skip = [apiUrl, key, email, password].contains(null)
+      ? 'set MURKIO_LIVE_* to run against a real API'
+      : null;
 
   Murkio create(MurkioStorage storage, {DateTime Function()? now}) => Murkio(
     publishableKey: key!,

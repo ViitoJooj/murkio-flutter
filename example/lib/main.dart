@@ -21,9 +21,8 @@ class ExampleApp extends StatelessWidget {
     return MaterialApp(
       title: 'Murkio identity',
       home: MurkioAuthBuilder(
-        builder:
-            (context, session) =>
-                session == null ? const LoginPage() : const HomePage(),
+        builder: (context, session) =>
+            session == null ? const LoginPage() : const HomePage(),
       ),
     );
   }

@@ -126,10 +126,9 @@ class ApiClient {
     return BootstrapResponse(
       notModified: response.status == 304,
       etag: response.headers['etag'],
-      data:
-          response.data == null
-              ? null
-              : ClientBootstrap.fromJson(response.data),
+      data: response.data == null
+          ? null
+          : ClientBootstrap.fromJson(response.data),
     );
   }
 

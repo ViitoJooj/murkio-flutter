@@ -121,10 +121,9 @@ ElementLook resolveLook(CanvasElement element, CanvasTheme theme) {
     // Only a color means a 1px border; only a width takes the color the
     // element already has (its default border, else its text color).
     borderWidth = (style.borderWidth ?? 1).toDouble();
-    border =
-        style.borderColor != null
-            ? Color(style.borderColor!)
-            : border ?? foreground;
+    border = style.borderColor != null
+        ? Color(style.borderColor!)
+        : border ?? foreground;
   }
   if (style.radius != null) radius = style.radius!.toDouble();
   if (style.fontSize != null) fontSize = style.fontSize!.toDouble();
@@ -191,10 +190,9 @@ Widget decorateBox(ElementLook look, Widget child, {bool clip = false}) {
     clipBehavior: clip && look.radius > 0 ? Clip.antiAlias : Clip.none,
     decoration: BoxDecoration(
       color: look.background,
-      border:
-          hasBorder
-              ? Border.all(color: look.borderColor!, width: look.borderWidth)
-              : null,
+      border: hasBorder
+          ? Border.all(color: look.borderColor!, width: look.borderWidth)
+          : null,
       borderRadius: look.radius > 0 ? BorderRadius.circular(look.radius) : null,
       boxShadow: look.shadows.isEmpty ? null : look.shadows,
     ),
@@ -214,11 +212,10 @@ class CheckPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final path =
-        Path()
-          ..moveTo(size.width * 0.22, size.height * 0.52)
-          ..lineTo(size.width * 0.42, size.height * 0.72)
-          ..lineTo(size.width * 0.78, size.height * 0.30);
+    final path = Path()
+      ..moveTo(size.width * 0.22, size.height * 0.52)
+      ..lineTo(size.width * 0.42, size.height * 0.72)
+      ..lineTo(size.width * 0.78, size.height * 0.30);
     canvas.drawPath(
       path,
       Paint()
@@ -245,19 +242,17 @@ class EyePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final w = size.width;
     final h = size.height;
-    final stroke =
-        Paint()
-          ..color = color
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = w * 0.08
-          ..strokeCap = StrokeCap.round
-          ..strokeJoin = StrokeJoin.round;
-    final outline =
-        Path()
-          ..moveTo(w * 0.08, h * 0.5)
-          ..quadraticBezierTo(w * 0.5, h * 0.02, w * 0.92, h * 0.5)
-          ..quadraticBezierTo(w * 0.5, h * 0.98, w * 0.08, h * 0.5)
-          ..close();
+    final stroke = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = w * 0.08
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    final outline = Path()
+      ..moveTo(w * 0.08, h * 0.5)
+      ..quadraticBezierTo(w * 0.5, h * 0.02, w * 0.92, h * 0.5)
+      ..quadraticBezierTo(w * 0.5, h * 0.98, w * 0.08, h * 0.5)
+      ..close();
     canvas.drawPath(outline, stroke);
     canvas.drawCircle(Offset(w * 0.5, h * 0.5), w * 0.14, stroke);
     if (crossed) {

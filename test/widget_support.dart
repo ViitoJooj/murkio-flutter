@@ -70,11 +70,10 @@ Future<void> pumpApp(
     case 'widgets':
       app = WidgetsApp(
         color: const Color(0xFF000000),
-        pageRouteBuilder:
-            <T>(RouteSettings settings, WidgetBuilder builder) =>
-                PageRouteBuilder<T>(
-                  pageBuilder: (context, _, _) => builder(context),
-                ),
+        pageRouteBuilder: <T>(RouteSettings settings, WidgetBuilder builder) =>
+            PageRouteBuilder<T>(
+              pageBuilder: (context, _, _) => builder(context),
+            ),
         home: body,
       );
     default:
@@ -123,14 +122,13 @@ FakeApi canvasApi({
   List<String> providers = const [],
 }) {
   return FakeApi({
-    'GET /v1/client':
-        (_) => Answer.data(
-          bootstrapJson(
-            document: document,
-            password: password,
-            providers: providers,
-          ),
-        ),
+    'GET /v1/client': (_) => Answer.data(
+      bootstrapJson(
+        document: document,
+        password: password,
+        providers: providers,
+      ),
+    ),
     ...routes,
   });
 }

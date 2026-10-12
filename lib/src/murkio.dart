@@ -287,8 +287,9 @@ class Murkio {
   Future<ClientBootstrap> _loadBootstrap(_CachedBootstrap? cached) async {
     try {
       final response = await api.bootstrap(etag: cached?.etag);
-      final data =
-          response.notModified && cached != null ? cached.data : response.data;
+      final data = response.notModified && cached != null
+          ? cached.data
+          : response.data;
       if (data == null) {
         throw MurkioException('unknown', 0, message: 'empty bootstrap');
       }
@@ -312,11 +313,10 @@ class Murkio {
           'the request carried an Origin that is not allowed for this '
           'publishable key.',
     };
-    final hint =
-        error.code == 'network'
-            ? 'could not reach ${api.apiUrl}. Check apiUrl and the connection.'
-            : hints[error.code] ??
-                'could not load the application (${error.code}).';
+    final hint = error.code == 'network'
+        ? 'could not reach ${api.apiUrl}. Check apiUrl and the connection.'
+        : hints[error.code] ??
+              'could not load the application (${error.code}).';
     debugPrint('[murkio] $hint');
   }
 

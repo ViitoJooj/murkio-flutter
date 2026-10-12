@@ -77,8 +77,8 @@ class MurkioFormController extends ChangeNotifier {
     final locale = resolveLocale(
       context,
       optionLocale: murkio.localeOption,
-      deviceLocale:
-          WidgetsBinding.instance.platformDispatcher.locale.toLanguageTag(),
+      deviceLocale: WidgetsBinding.instance.platformDispatcher.locale
+          .toLanguageTag(),
     );
     _locale = locale;
     final flow = _flow ??= FlowController(murkio)..addListener(_changed);
@@ -194,19 +194,18 @@ class _StepDialog extends StatelessWidget {
           insetPadding: const EdgeInsets.all(16),
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 400),
-            child:
-                theme == null
-                    ? const SizedBox(height: 120)
-                    : SingleChildScrollView(
-                      child: MurkioEnvironment(
-                        child: MurkioStepView(
-                          flow: flow,
-                          theme: theme,
-                          locale: controller._locale,
-                          onOpenUrl: (url) => controller.murkio.openUrl(url),
-                        ),
+            child: theme == null
+                ? const SizedBox(height: 120)
+                : SingleChildScrollView(
+                    child: MurkioEnvironment(
+                      child: MurkioStepView(
+                        flow: flow,
+                        theme: theme,
+                        locale: controller._locale,
+                        onOpenUrl: (url) => controller.murkio.openUrl(url),
                       ),
                     ),
+                  ),
           ),
         );
       },
@@ -550,15 +549,15 @@ class _ActionButtonState extends State<_ActionButton> with _FormListener {
     if (builder != null) return builder(context, onPressed, busy);
     return widget._register
         ? OutlinedButton(
-          onPressed: onPressed,
-          style: widget.style,
-          child: widget.child,
-        )
+            onPressed: onPressed,
+            style: widget.style,
+            child: widget.child,
+          )
         : FilledButton(
-          onPressed: onPressed,
-          style: widget.style,
-          child: widget.child,
-        );
+            onPressed: onPressed,
+            style: widget.style,
+            child: widget.child,
+          );
   }
 }
 
@@ -616,16 +615,15 @@ class _MurkioIdentityErrorState extends State<MurkioIdentityError>
       context,
       widgetLocale: widget.locale,
       optionLocale: form.murkio.localeOption,
-      deviceLocale:
-          WidgetsBinding.instance.platformDispatcher.locale.toLanguageTag(),
+      deviceLocale: WidgetsBinding.instance.platformDispatcher.locale
+          .toLanguageTag(),
     );
     final error = state.error;
-    final text =
-        error != null
-            ? translateError(error.code, locale)
-            : state.notice != null
-            ? murkioString(locale, state.notice!)
-            : null;
+    final text = error != null
+        ? translateError(error.code, locale)
+        : state.notice != null
+        ? murkioString(locale, state.notice!)
+        : null;
     if (text == null) return const SizedBox.shrink();
     final style =
         widget.style ??

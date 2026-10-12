@@ -1,0 +1,9 @@
+# The runtime dependencies this SDK ships with, one per line, each with the
+# reason it is needed. infra/pipeline/verify_dependencies.py fails when the
+# manifest and this list disagree.
+
+flutter                # the SDK is a set of Flutter widgets
+crypto                 # SHA-256 for the PKCE challenge of the social sign-in
+flutter_secure_storage # keeps the session in the Keychain / Keystore, never in plain preferences
+http                   # talks to the identity API
+url_launcher           # opens the provider's page in the social sign-in

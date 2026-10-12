@@ -180,8 +180,9 @@ void main() {
       storage.values[key] = jsonEncode({
         'accessToken': 'old-access',
         'refreshToken': 'old-refresh',
-        'expiresAt':
-            clock.time.add(const Duration(minutes: 5)).millisecondsSinceEpoch,
+        'expiresAt': clock.time
+            .add(const Duration(minutes: 5))
+            .millisecondsSinceEpoch,
         'sessionId': 'session-of-a-previous-run',
         'ephemeral': true,
       });
@@ -318,9 +319,8 @@ void main() {
       clock.advance(const Duration(minutes: 20));
 
       final api = FakeApi({
-        'POST /v1/token/refresh':
-            (_) =>
-                Answer.data(tokens(now: clock.time, sessionId: 'old-but-kept')),
+        'POST /v1/token/refresh': (_) =>
+            Answer.data(tokens(now: clock.time, sessionId: 'old-but-kept')),
       });
       final second = await start(api);
       await Future<void>.delayed(Duration.zero);

@@ -115,8 +115,9 @@ void main() {
       test('layout #$index: ${(entry['document'] as String).split('/').last} '
           'at ${entry['width']} is ${expected['layout']}', () {
         final document = documentAt(entry['document'] as String);
-        final screen =
-            entry['screen'] == 'sign_up' ? document.signUp! : document.signIn;
+        final screen = entry['screen'] == 'sign_up'
+            ? document.signUp!
+            : document.signIn;
         final placement = place(
           screen,
           (entry['width'] as num).toDouble(),

@@ -258,29 +258,31 @@ CanvasStyle _style(Object? style, List<String> problems, String path) {
   final color = parseColor(style['color']);
   final background = parseColor(style['background']);
   final borderColor = parseColor(style['border_color']);
-  final borderWidth =
-      _isInt(style['border_width'], 0, 8) ? _int(style['border_width']) : null;
+  final borderWidth = _isInt(style['border_width'], 0, 8)
+      ? _int(style['border_width'])
+      : null;
   final radius = _isInt(style['radius'], 0, 999) ? _int(style['radius']) : null;
-  final fontSize =
-      _isInt(style['font_size'], 12, 72) ? _int(style['font_size']) : null;
+  final fontSize = _isInt(style['font_size'], 12, 72)
+      ? _int(style['font_size'])
+      : null;
   final fontWeight =
       _isInt(style['font_weight'], 100, 900) &&
-              _int(style['font_weight']) % 100 == 0
-          ? _int(style['font_weight'])
-          : null;
+          _int(style['font_weight']) % 100 == 0
+      ? _int(style['font_weight'])
+      : null;
   final textAlign = switch (style['text_align']) {
     'left' => CanvasTextAlign.left,
     'center' => CanvasTextAlign.center,
     'right' => CanvasTextAlign.right,
     _ => null,
   };
-  final padding =
-      _isInt(style['padding'], 0, 64) ? _int(style['padding']) : null;
+  final padding = _isInt(style['padding'], 0, 64)
+      ? _int(style['padding'])
+      : null;
   final rawOpacity = style['opacity'];
-  final opacity =
-      rawOpacity is num && rawOpacity >= 0 && rawOpacity <= 1
-          ? rawOpacity.toDouble()
-          : null;
+  final opacity = rawOpacity is num && rawOpacity >= 0 && rawOpacity <= 1
+      ? rawOpacity.toDouble()
+      : null;
   final shadow = switch (style['shadow']) {
     'none' => CanvasShadow.none,
     'sm' => CanvasShadow.sm,
@@ -406,11 +408,10 @@ CanvasScreen? _screen(
     '$path.layouts.desktop',
   );
   if (desktop == null) return null;
-  final mobile =
-      layouts['mobile'] == null
-          ? null
-          : _layout(layouts['mobile'], problems, '$path.layouts.mobile');
-  final present = [desktop, if (mobile != null) mobile];
+  final mobile = layouts['mobile'] == null
+      ? null
+      : _layout(layouts['mobile'], problems, '$path.layouts.mobile');
+  final present = [desktop, ?mobile];
 
   final raw = value['elements'] as List;
   if (raw.length > _maxElements) {
@@ -434,12 +435,11 @@ CanvasScreen? _screen(
 
     final type = CanvasElementType.parse(entry['type']);
     final Object? rawProps = entry['props'];
-    final Map<Object?, Object?>? props =
-        rawProps is Map
-            ? rawProps
-            : rawProps == null
-            ? const {}
-            : null;
+    final Map<Object?, Object?>? props = rawProps is Map
+        ? rawProps
+        : rawProps == null
+        ? const {}
+        : null;
     if (type == null || props == null) {
       problems.add('$at: invalid ${entry['type']}');
       continue;
@@ -533,10 +533,9 @@ SanitizeResult sanitizeDocument(Object? value) {
     counter,
   );
   if (signIn == null) return SanitizeResult(null, problems);
-  final signUp =
-      screens['sign_up'] == null
-          ? null
-          : _screen(screens['sign_up'], problems, 'screens.sign_up', counter);
+  final signUp = screens['sign_up'] == null
+      ? null
+      : _screen(screens['sign_up'], problems, 'screens.sign_up', counter);
 
   return SanitizeResult(
     CanvasDocument(
