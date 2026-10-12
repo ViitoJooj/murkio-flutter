@@ -20,7 +20,7 @@ dependencies:
       url: https://github.com/ViitoJooj/murkio-flutter.git
 ```
 
-Needs Flutter 3.32 or newer (Dart 3.8). Android needs `minSdkVersion 24` (the default of
+Needs Flutter 3.38 or newer (Dart 3.10). Android needs `minSdkVersion 24` (the default of
 current Flutter). Nothing to set up on iOS.
 
 ## Quick start
@@ -243,7 +243,7 @@ Every pull request runs the workflows in `.github/workflows`. The same checks, l
 | Build | creates the Android project of `example/` and runs `flutter build apk --debug` |
 | Format | `dart format --output=none --set-exit-if-changed .` |
 | Lint | `flutter analyze --fatal-infos` (the package and the example) |
-| Tests | `flutter test` on Flutter 3.32.0 (the oldest supported) and on the current release |
+| Tests | `flutter test` on Flutter 3.38.0 (the oldest supported) and on the current release |
 | Quality & Governance Checks | `for check in infra/pipeline/*.py; do python3 "$check"; done` |
 | Security | `osv-scanner scan source --lockfile pubspec.lock`, `gitleaks git .`, `zizmor --pedantic .` |
 | Dependency Review | run by GitHub on the pull request |
